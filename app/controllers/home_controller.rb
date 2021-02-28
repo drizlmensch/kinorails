@@ -3,8 +3,7 @@ class HomeController < ApplicationController
 
   def index
 		@img_urls = []
-		resource = Aws::S3::Resource.new
-		bucket = resource.bucket('kinorails-static-assets')
+		bucket = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET_NAME'])
 		signer = Aws::S3::Presigner.new
 		
 		bucket.objects.each do |obj|
